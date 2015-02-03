@@ -9,7 +9,8 @@
 
 	Dual licensed under the MIT or GPL licenses.
 ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*/
-/*jslint browser: true, unparam: true, white: true, nomen: true, regexp: true, maxerr: 50, indent: 4 */
+/* jshint browser: true, unused: true, white: true, nomen: true, regexp: true, maxerr: 50, indent: 4 */
+/* jshint laxcomma:true */
 
 (function (window, document) {
 	/*global HTMLElement */
@@ -35,26 +36,26 @@
 
 			// stealing this from selectivizr
 			var selectorEngines = {
-				"MooTools"							: "$$",
-				"Prototype"							: "$$",
+				"MooTools"						: "$$",
+				"Prototype"					  : "$$",
 				"jQuery"							: "*"
 			},
 
 
 				// local variables for internal use
-				item_id					= 0,
+				item_id					    = 0,
 				item_id_namespace		= "SCI-",
-				sc_items				= {},
-				namespace				= space || "simpleCart",
+				sc_items				    = {},
+				namespace				    = space || "simpleCart",
 				selectorFunctions		= {},
-				eventFunctions			= {},
-				baseEvents				= {},
+				eventFunctions		  = {},
+				baseEvents				  = {},
 
 				// local references
-				localStorage			= window.localStorage,
-				console					= window.console || { msgs: [], log: function (msg) { console.msgs.push(msg); } },
+				localStorage			  = window.localStorage,
+				console					    = window.console || { msgs: [], log: function (msg) { console.msgs.push(msg); } },
 
-				// used in views 
+				// used in views
 				_VALUE_		= 'value',
 				_TEXT_		= 'text',
 				_HTML_		= 'html',
@@ -102,16 +103,16 @@
 						{ view: "remove", text: "Remove", label: false }
 					],
 
-					excludeFromCheckout	: ['thumb'],
+					excludeFromCheckout	 : ['thumb'],
 
-					shippingFlatRate		: 0,
-					shippingQuantityRate	: 0,
+					shippingFlatRate		 : 0,
+					shippingQuantityRate: 0,
 					shippingTotalRate		: 0,
-					shippingCustom		: null,
+					shippingCustom		  : null,
 
 					taxRate				: 0,
-					
-					taxShipping			: false,
+
+					taxShipping		: false,
 
 					data				: {}
 
@@ -180,12 +181,12 @@
 					// trigger before add event
 					if (!quiet) {
 					  	addItem = simpleCart.trigger('beforeAdd', [newItem]);
-					
+
 						if (addItem === false) {
 							return false;
 						}
 					}
-					
+
 					// if the new item already exists, increment the value
 					oldItem = simpleCart.has(newItem);
 					if (oldItem) {
@@ -342,10 +343,10 @@
 						// send a param of true to make sure it doesn't
 						// update after every removal
 						// keep the item if the function returns false,
-						// because we know it has been prevented 
+						// because we know it has been prevented
 						// from being removed
 						if (item.remove(true) === false) {
-							newItems[item.id()] = item
+							newItems[item.id()] = item;
 						}
 					});
 					sc_items = newItems;
@@ -455,8 +456,8 @@
 					if (!items) {
 						return;
 					}
-					
-					// we wrap this in a try statement so we can catch 
+
+					// we wrap this in a try statement so we can catch
 					// any json parsing errors. no more stick and we
 					// have a playing card pluckin the spokes now...
 					// soundin like a harley.
@@ -501,7 +502,10 @@
 					} else if (isObject(message) && isString(message.message)) {
 						msg = message.message;
 					}
-					try { console.log("simpleCart(js) Error: " + msg); } catch (e) {}
+					try {
+            console.log("simpleCart(js) Error: " + msg);
+          }
+          catch (e) {}
 					simpleCart.trigger('error', [message]);
 				}
 			});
@@ -516,7 +520,7 @@
 				tax: function () {
 					var totalToTax = settings.taxShipping ? simpleCart.total() + simpleCart.shipping() : simpleCart.total(),
 						cost = simpleCart.taxRate() * totalToTax;
-					
+
 					simpleCart.each(function (item) {
 						if (item.get('tax')) {
 							cost += item.get('tax');
@@ -526,7 +530,7 @@
 					});
 					return parseFloat(cost);
 				},
-				
+
 				taxRate: function () {
 					return settings.taxRate || 0;
 				},
@@ -827,7 +831,7 @@
 						return false;
 					}
 					delete sc_items[this.id()];
-					if (!skipUpdate) { 
+					if (!skipUpdate) {
 						simpleCart.update();
 					}
 					return null;
@@ -887,7 +891,7 @@
 						settings.checkout.fn.call(simpleCart,settings.checkout);
 					} else if (isFunction(simpleCart.checkout[settings.checkout.type])) {
 						var checkoutData = simpleCart.checkout[settings.checkout.type].call(simpleCart,settings.checkout);
-						
+
 						// if the checkout method returns data, try to send the form
 						if( checkoutData.data && checkoutData.action && checkoutData.method ){
 							// if no one has any objections, send the checkout form
@@ -895,7 +899,7 @@
 								simpleCart.generateAndSendForm( checkoutData );
 							}
 						}
-						
+
 					} else {
 						simpleCart.error("No Valid Checkout Method Specified");
 					}
@@ -959,7 +963,7 @@
 							item_options = item.options(),
 							optionCount = 0,
 							send;
-	
+
 						// basic item data
 						data["item_name_" + counter] = item.get("name");
 						data["quantity_" + counter] = item.quantity();
@@ -971,7 +975,7 @@
 						simpleCart.each(item_options, function (val,k,attr) {
 							// paypal limits us to 10 options
 							if (k < 10) {
-		
+
 								// check to see if we need to exclude this from checkout
 								send = true;
 								simpleCart.each(settings.excludeFromCheckout, function (field_name) {
@@ -982,7 +986,7 @@
 										data["on" + k + "_" + counter] = attr;
 										data["os" + k + "_" + counter] = val;
 								}
-	
+
 							}
 						});
 
@@ -1212,10 +1216,10 @@
 					if (!this._events) {
 						this._events = {};
 					}
-					
+
 					// split by spaces to allow for multiple event bindings at once
 					var eventNameList = name.split(/ +/);
-					
+
 					// iterate through and bind each event
 					simpleCart.each( eventNameList , function( eventName ){
 						if (this._events[eventName] === true) {
@@ -1227,10 +1231,10 @@
 						}
 					});
 
-					
+
 					return this;
 				},
-				
+
 				// trigger event
 				trigger: function (name, options) {
 					var returnval = true,
@@ -1272,7 +1276,7 @@
 				, beforeCheckout		: null
 				, beforeRemove			: null
 			};
-			
+
 			// extend with base events
 			simpleCart(baseEvents);
 
@@ -1303,14 +1307,14 @@
 						numParts = num.toFixed(_opts.accuracy).split("."),
 						dec = numParts[1],
 						ints = numParts[0];
-			
+
 					ints = simpleCart.chunk(ints.reverse(), 3).join(_opts.delimiter.reverse()).reverse();
 
 					return	(!_opts.after ? _opts.symbol : "") +
 							ints +
 							(dec ? _opts.decimal + dec : "") +
 							(_opts.after ? _opts.symbol : "");
-	
+
 				},
 
 
@@ -1355,7 +1359,7 @@
 				// bind outlets to function
 				bindOutlets: function (outlets) {
 					simpleCart.each(outlets, function (callback, x, selector) {
-						
+
 						simpleCart.bind('update', function () {
 							simpleCart.setOutlet("." + namespace + "_" + selector, callback);
 						});
@@ -1379,16 +1383,15 @@
 					});
 				},
 
-				// attach events to inputs	
+				// attach events to inputs
 				setInput: function (selector, event, func) {
 					simpleCart.$(selector).live(event, func);
 				}
-			});		
+			});
 
 
 			// class for wrapping DOM selector shit
 			simpleCart.ELEMENT = function (selector) {
-
 				this.create(selector);
 				this.selector = selector || null; // "#" + this.attr('id'); TODO: test length?
 			};
@@ -1409,7 +1412,7 @@
 						if (isUndefined(val)) {
 							return this.el[0] && this.el[0].get(attr);
 						}
-						
+
 						this.el.set(attr, val);
 						return this;
 					},
@@ -1610,7 +1613,7 @@
 						if (isUndefined(val)) {
 							return this.el[action]();
 						}
-						
+
 						this.el[action](val);
 						return this;
 					},
@@ -1796,7 +1799,7 @@
 													type = $item.attr("type");
 													if (!type || ((type.toLowerCase() === "checkbox" || type.toLowerCase() === "radio") && $item.attr("checked")) || type.toLowerCase() === "text" || type.toLowerCase() === "number") {
 														val = $item.val();
-													}				
+													}
 													break;
 												case "img":
 													val = $item.attr('src');
@@ -1862,7 +1865,7 @@
 				// and execute any waiting functions
 				simpleCart.init();
 			}
-			
+
 			// bind ready event used from jquery
 			function sc_BindReady () {
 
@@ -1915,17 +1918,6 @@
 
 }(window, document));
 
-/************ JSON *************/
-var JSON;JSON||(JSON={});
-(function () {function k(a) {return a<10?"0"+a:a}function o(a) {p.lastIndex=0;return p.test(a)?'"'+a.replace(p,function (a) {var c=r[a];return typeof c==="string"?c:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function l(a,j) {var c,d,h,m,g=e,f,b=j[a];b&&typeof b==="object"&&typeof b.toJSON==="function"&&(b=b.toJSON(a));typeof i==="function"&&(b=i.call(j,a,b));switch(typeof b) {case "string":return o(b);case "number":return isFinite(b)?String(b):"null";case "boolean":case "null":return String(b);case "object":if (!b)return"null";
-e += n;f=[];if (Object.prototype.toString.apply(b)==="[object Array]") {m=b.length;for (c=0;c<m;c += 1)f[c]=l(c,b)||"null";h=f.length===0?"[]":e?"[\n"+e+f.join(",\n"+e)+"\n"+g+"]":"["+f.join(",")+"]";e=g;return h}if (i&&typeof i==="object") {m=i.length;for (c=0;c<m;c += 1)typeof i[c]==="string"&&(d=i[c],(h=l(d,b))&&f.push(o(d)+(e?": ":":")+h))}else for (d in b)Object.prototype.hasOwnProperty.call(b,d)&&(h=l(d,b))&&f.push(o(d)+(e?": ":":")+h);h=f.length===0?"{}":e?"{\n"+e+f.join(",\n"+e)+"\n"+g+"}":"{"+f.join(",")+
-"}";e=g;return h}}if (typeof Date.prototype.toJSON!=="function")Date.prototype.toJSON=function () {return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+k(this.getUTCMonth()+1)+"-"+k(this.getUTCDate())+"T"+k(this.getUTCHours())+":"+k(this.getUTCMinutes())+":"+k(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function () {return this.valueOf()};var q=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
-p=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,e,n,r={"\u0008":"\\b","\t":"\\t","\n":"\\n","\u000c":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},i;if (typeof JSON.stringify!=="function")JSON.stringify=function (a,j,c) {var d;n=e="";if (typeof c==="number")for (d=0;d<c;d += 1)n += " ";else typeof c==="string"&&(n=c);if ((i=j)&&typeof j!=="function"&&(typeof j!=="object"||typeof j.length!=="number"))throw Error("JSON.stringify");return l("",
-{"":a})};if (typeof JSON.parse!=="function")JSON.parse=function (a,e) {function c(a,d) {var g,f,b=a[d];if (b&&typeof b==="object")for (g in b)Object.prototype.hasOwnProperty.call(b,g)&&(f=c(b,g),f!==void 0?b[g]=f:delete b[g]);return e.call(a,d,b)}var d,a=String(a);q.lastIndex=0;q.test(a)&&(a=a.replace(q,function (a) {return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)}));if (/^[\],:{}\s]*$/.test(a.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return d=eval("("+a+")"),typeof e==="function"?c({"":d},""):d;throw new SyntaxError("JSON.parse");}})();
+// originally, localStorage and JSON code was here
 
 
-/************ HTML5 Local Storage Support *************/
-(function () {if (!this.localStorage)if (this.globalStorage)try {this.localStorage=this.globalStorage}catch(e) {}else{var a=document.createElement("div");a.style.display="none";document.getElementsByTagName("head")[0].appendChild(a);if (a.addBehavior) {a.addBehavior("#default#userdata");var d=this.localStorage={length:0,setItem:function (b,d) {a.load("localStorage");b=c(b);a.getAttribute(b)||this.length++;a.setAttribute(b,d);a.save("localStorage")},getItem:function (b) {a.load("localStorage");b=c(b);return a.getAttribute(b)},
-removeItem:function (b) {a.load("localStorage");b=c(b);a.removeAttribute(b);a.save("localStorage");this.length=0},clear:function () {a.load("localStorage");for (var b=0;attr=a.XMLDocument.documentElement.attributes[b++];)a.removeAttribute(attr.name);a.save("localStorage");this.length=0},key:function (b) {a.load("localStorage");return a.XMLDocument.documentElement.attributes[b]}},c=function (a) {return a.replace(/[^-._0-9A-Za-z\xb7\xc0-\xd6\xd8-\xf6\xf8-\u037d\u37f-\u1fff\u200c-\u200d\u203f\u2040\u2070-\u218f]/g,
-"-")};a.load("localStorage");d.length=a.XMLDocument.documentElement.attributes.length}}})();

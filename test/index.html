@@ -1,24 +1,24 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <title>simpleCart(js) - QUnit Test Suite</title>  
-    <link rel="stylesheet" href="css/qunit.css" type="text/css" media="screen">  
+<!DOCTYPE html>
+<html>
+<head>
+    <title>simpleCart(js) - QUnit Test Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/1.14.0/qunit.min.css" type="text/css" media="screen">
 
-	<script>/*<![CDATA[*/!window.QUnit && document.write('<script src="inc/qunit.js"><\/script>')/*]]>*/</script>
-	<script src="http://swarm.simplecartjs.com/js/inject.js"></script>
-	
-    <!-- Your project file goes here -->  
+	<script>/*<![CDATA[*/!window.QUnit && document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/1.14.0/qunit.min.js"><\/script>')/*]]>*/</script>
+    <script src="inc/inject-0.7.1.min.js"></script>
+
+    <!-- Your project file goes here -->
 	<script>/*<![CDATA[*/
-	
+
 	if( QUnit.urlParams.lib && QUnit.urlParams.ver ){
-		document.write('<script src="https://ajax.googleapis.com/ajax/libs/'+ 
-					QUnit.urlParams.lib + '/' + 
-					QUnit.urlParams.ver + '/' + 
+		document.write('<script src="https://ajax.googleapis.com/ajax/libs/'+
+					QUnit.urlParams.lib + '/' +
+					QUnit.urlParams.ver + '/' +
 					QUnit.urlParams.lib + '.js"><\/script>');
 	} else {
-		document.write('<script src="inc/jquery.1.6.1.min.js"><\/script>');
+		document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"><\/script>');
 	}
-	
+
 	if( QUnit.urlParams.commit ){
 		document.write('<script src="inc/get-raw-javascript.php?file=https://raw.github.com/wojodesign/simplecart-js/'+ QUnit.urlParams.commit +'/simpleCart.js"><\/script>');
 		document.write('<script src="inc/get-raw-javascript.php?file=https://raw.github.com/wojodesign/simplecart-js/'+ QUnit.urlParams.commit +'/test/test.core.js"><\/script>');
@@ -28,7 +28,7 @@
 	}
 	/*]]>*/</script>
 
-	
+
 	<style >
 
 	 	.itemContainer{
@@ -59,15 +59,15 @@
 	</style>
 
 
-</head>  
-<body>  
-	
-	<h1 id="qunit-header">QUnit Test Suite</h1>  
-    <h2 id="qunit-banner"></h2>  
-    <div id="qunit-testrunner-toolbar"></div>  
-    <h2 id="qunit-userAgent"></h2>  
+</head>
+<body>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
     <ol id="qunit-tests"></ol>
-	
+
 	<p>
 	Cart: <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
 	<br />
@@ -84,14 +84,14 @@
 			<select class="item_Size">
 				<option value="Small">Small</option>
 				<option value="Medium">Medium</option>
-				<option value="Large">Large</option>	
-			</select>	
-			
+				<option value="Large">Large</option>
+			</select>
+
 			<input type="checkbox" class="item_color" value="Blue"/><label>Blue</label>
 			<input type="checkbox" class="item_color" value="Yellow"/><label>Yellow</label>
 			<input type="checkbox" class="item_color" value="Red"/><label>Red</label>
-			
-			<input type="hidden" class="item_shipping" value="20" />	
+
+			<input type="hidden" class="item_shipping" value="20" />
 			<input type="text" class="item_quantity" value="1" />
 			<input type="button" class="item_add" value="add to cart" />
 		</li>
@@ -104,8 +104,8 @@
 			<select class="item_Size">
 				<option value="Tiny">Tiny</option>
 				<option value="Medium">Medium</option>
-				<option value="Bull">Bull</option>	
-			</select>		
+				<option value="Bull">Bull</option>
+			</select>
 			<input type="text" class="item_quantity" value="1" />
 			<input type="button" class="item_add" value="add to cart" />
 		</li>
@@ -117,7 +117,7 @@
 			<div>$34.95</div>
 			<a href="javascript:;" onclick="simpleCart.add({name:'baby lion', price: 34.95,size:'tiny',thumb:'e.png'});" >add to cart</a>
 		</li>
-		
+
 		<li>
 			<h2>sc Demo Baby Lion</h2>
 			<div>$34.95</div>
@@ -141,9 +141,9 @@
 	-----------------------------<br />
 	Final Total: <span id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span> <br />
 
-	<a href="javascript:;" class="simpleCart_checkout">checkout</a>	
-	
+	<a href="javascript:;" class="simpleCart_checkout">checkout</a>
+
 	<div id="test_id"></div>
-    
-</body>  
+
+</body>
 </html>
