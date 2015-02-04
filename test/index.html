@@ -9,10 +9,11 @@
 
     <!-- Your project file goes here -->
 	<script>/*<![CDATA[*/
-    Inject.setModuleRoot("/inc");
+    Inject.setModuleRoot("./inc/");
     //require.run("program");
 
-	if( QUnit.urlParams.lib && QUnit.urlParams.ver ){ // select protoype/jquery/mootools
+    // select Protoype/jQuery/MooTools by url parameter
+	if( QUnit.urlParams.lib && QUnit.urlParams.ver ){
 		document.write('<script src="https://ajax.googleapis.com/ajax/libs/'+
 					QUnit.urlParams.lib + '/' +
 					QUnit.urlParams.ver + '/' +
@@ -29,6 +30,8 @@
 
 	} else {
 		document.write('<script src="../simpleCart.js"><\/script>');
+        document.write('<script src="../simpleCart-JSON.js"><\/script>');
+        document.write('<script src="../simpleCart-localStorage.js"><\/script>');
 		document.write('<script type="text/javascript" src="test.core.js"><\/script>');
 	}
 	/*]]>*/</script>
