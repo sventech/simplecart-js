@@ -14,9 +14,12 @@ Dual licensed under the MIT or GPL licenses.
 If you would like to use an older version, you can use a different branch or see them in the
 downloads area
 
+v3.0.6 changelog
+ - [Google wallet is deprecated](https://support.google.com/wallet/business/answer/6107573?hl=en)
+
 v3.0.5 changelog
- - moved beforeCheckout event and form sending inside of .checkout() to keep dry
- - added price, shipping, tax formatting for paypal checkout
+ - moved beforeCheckout event and form sending inside of .checkout() to keep DRY
+ - added price, shipping, tax formatting for PayPal checkout
  - added .submit method to ELEMENT
  - fixed mootools .get and .live bugs
 

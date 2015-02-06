@@ -119,6 +119,11 @@
                         symbol: "&#36;",
                         name: "Hong Kong Dollar"
                     },
+                    "HRK": {
+                        code: "HRK",
+                        symbol: "HRK&nbsp;",
+                        name: "Croatian kuna"
+                    },
                     "HUF": {
                         code: "HUF",
                         symbol: "&#70;&#116;",
@@ -154,6 +159,11 @@
                         code: "PLN",
                         symbol: "PLN&nbsp;",
                         name: "Polish Zloty"
+                    },
+                    "RUB": {
+                        code: "RUB",
+                        symbol: "&#8381;",
+                        name: "Russian Ruble"
                     },
                     "GBP": {
                         code: "GBP",
@@ -199,6 +209,7 @@
                     language: "english-us",
 
                     cartStyle: "div",
+                    cartTableClass: "table",
                     cartColumns: [{
                         attr: "name",
                         label: "Name"
@@ -751,8 +762,9 @@
                         TR = isTable ? "tr" : "div",
                         TH = isTable ? 'th' : 'div',
                         TD = isTable ? 'td' : 'div',
+                        TABLE_CLASS = settings.cartTableClass ? settings.cartTableClass : 'table',
                         THEAD = isTable ? 'thead' : 'div',
-                        cart_container = simpleCart.$create(TABLE),
+                        cart_container = simpleCart.$create(TABLE).addClass(TABLE_CLASS),
                         thead_container = simpleCart.$create(THEAD),
                         header_container = simpleCart.$create(TR).addClass('headerRow'),
                         container = simpleCart.$(selector),
@@ -1129,6 +1141,8 @@
                 },
 
 
+                // Google wallet digital payments ends 2015-03-02
+                // https://support.google.com/wallet/business/answer/6107573?hl=en
                 GoogleCheckout: function(opts) {
                     // account id is required
                     if (!opts.merchantID) {
