@@ -244,6 +244,8 @@
                     shippingCustom: null,
 
                     taxRate: 0,
+                    taxCountry: false,
+                    taxRegion: false,
 
                     taxShipping: false,
 
@@ -651,6 +653,12 @@
 
                 // TODO: tax and shipping
                 tax: function() {
+                    if(settings.taxRegion && (settings.taxRegion != settings.currentRegion)) {
+                      return parseFloat(0);
+                    }
+                    if(settings.taxCountry && (settings.taxCountry != settings.currentCountry)) {
+                      return parseFloat(0);
+                    }
                     var totalToTax = settings.taxShipping ? simpleCart.total() + simpleCart.shipping() : simpleCart.total(),
                         cost = simpleCart.taxRate() * totalToTax;
 
@@ -666,6 +674,26 @@
 
                 taxRate: function() {
                     return settings.taxRate || 0;
+                },
+                taxCountry: function() {
+                    return settings.taxCountry || '';
+                },
+                taxRegion: function() {
+                    return settings.taxRegion || '';
+                },
+                currentCountry: function() {
+                    return settings.currentCountry || 'XX';
+                },
+                currentRegion: function() {
+                    return settings.currentRegion || 'Nowheresville';
+                },
+                setCountry: function(countryCode) {
+                    settings.currentCountry = countryCode || 'XX';
+                    this.trigger("update");
+                },
+                setRegion: function(regionName) {
+                    settings.currentRegion = regionName || 'Nowheresville';
+                    this.trigger("update");
                 },
 
                 shipping: function(opt_custom_function) {
@@ -718,6 +746,14 @@
 
                 increment: function(item, column) {
                     return "<a href='javascript:;' class='" + namespace + "_increment'>" + (column.text || "+") + "</a>";
+                },
+
+                decrement_btn: function(item, column) {
+                    return "<a href='javascript:;' class='" + namespace + "_decrement btn'>" + (column.text || "-") + "</a>";
+                },
+
+                increment_btn: function(item, column) {
+                    return "<a href='javascript:;' class='" + namespace + "_increment btn'>" + (column.text || "+") + "</a>";
                 },
 
                 image: function(item, column) {
@@ -1141,8 +1177,6 @@
                 },
 
 
-                // Google wallet digital payments ends 2015-03-02
-                // https://support.google.com/wallet/business/answer/6107573?hl=en
                 GoogleCheckout: function(opts) {
                     // account id is required
                     if (!opts.merchantID) {
@@ -1288,6 +1322,8 @@
                             shipping: simpleCart.shipping(),
                             tax: simpleCart.tax(),
                             taxRate: simpleCart.taxRate(),
+                            taxCountry: simpleCart.taxCountry(),
+                            taxRegion: simpleCart.taxRegion(),
                             itemCount: simpleCart.find({}).length
                         },
                         action = opts.url,
@@ -1850,6 +1886,12 @@
                     },
                     taxRate: function() {
                         return simpleCart.taxRate().toFixed();
+                    },
+                    taxCountry: function() {
+                        return simpleCart.taxCountry();
+                    },
+                    taxRegion: function() {
+                        return simpleCart.taxRegion();
                     },
                     shipping: function() {
                         return simpleCart.toCurrency(simpleCart.shipping());
