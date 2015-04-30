@@ -1,0 +1,17 @@
+{
+  "name": "simplecart-js",
+  "version": "3.0.5",
+  "homepage": "https://github.com/sventech/simplecart-js",
+  "description": "simpleCart.js - shopping basket JavaScript add-on for jQuery",
+  "main": "simpleCart.js",
+  "keywords": [
+    "basket",
+    "ecommerce",
+    "shop",
+    "cart",
+    "jquery",
+    "simplecart.js"
+  ],
+  "license": "MIT",
+  "private": true
+}
