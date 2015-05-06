@@ -4,8 +4,10 @@ No databases, no programming, no headaches. A simple JavaScript shopping
 cart that you can set up in minutes. It's lightweight, fast,
 simple to use, and completely customizable. All you need to know is basic HTML.
 
+Copyright (c) 2015 Sven Pedersen
 
 Copyright (c) 2012 Brett Wejrowski
+
 Dual licensed under the MIT or GPL licenses.
 
 
@@ -14,10 +16,29 @@ Dual licensed under the MIT or GPL licenses.
 If you would like to use an older version, you can use a different branch or see them in the
 downloads area
 
+v3.0.7 changelog
+
+ - updated browser tests
+ - Only jQuery selectors seem to work completely; mootools and 
+ - added region and country match support for tax calculation
+   includes the following new configuration options for the store and customer, respectively:
+   
+	`taxContry: 'US',`
+	`taxRegion: 'North Carolina',`
+	`currentRegion: 'South Carolina',`
+	`currentCountry: 'US',`
+   And the following functions to control the customer's location for tax purposes:
+   
+	`simpleCart.setRegion('Alberta');`
+	`simpleCart.setCountry('CA');`
+
+
 v3.0.6 changelog
+
  - [Google wallet is deprecated](https://support.google.com/wallet/business/answer/6107573?hl=en)
 
 v3.0.5 changelog
+
  - moved beforeCheckout event and form sending inside of .checkout() to keep DRY
  - added price, shipping, tax formatting for PayPal checkout
  - added .submit method to ELEMENT
