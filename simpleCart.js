@@ -1,13 +1,10 @@
 /*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-	Copyright (c) 2012 Brett Wejrowski
+        Copyright (c) 2015 Sven Pedersen - http://github.com/sventech/simplecart-js
+        Copyright (c) 2012 Brett Wejrowski - wojodesign.com / simplecartjs.org
 
-	wojodesign.com
-	simplecartjs.org
-	http://github.com/wojodesign/simplecart-js
+        VERSION 3.0.7
 
-	VERSION 3.0.5
-
-	Dual licensed under the MIT or GPL licenses.
+        Dual licensed under the MIT or GPL licenses.
 ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~*/
 /* jshint browser: true, unused: true, white: true, nomen: true, regexp: true, maxerr: 50, indent: 4 */
 /* jshint laxcomma:true */
@@ -35,7 +32,7 @@
         isObject = function(item) {
             return isTypeOf(item, typeof_object);
         },
-        //Returns true if it is a DOM element
+        // Returns true if it is a DOM element
         isElement = function(o) {
             return typeof HTMLElement === "object" ? o instanceof HTMLElement : typeof o === "object" && o.nodeType === 1 && typeof o.nodeName === "string";
         },
