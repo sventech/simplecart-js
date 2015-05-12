@@ -239,6 +239,8 @@
                     shippingQuantityRate: 0,
                     shippingTotalRate: 0,
                     shippingCustom: null,
+                    shippingNeeded: false,
+                    shippingWeight: 0,
 
                     taxRate: 0,
                     taxCountry: false,
@@ -325,7 +327,7 @@
                         oldItem.increment(newItem.quantity());
                         newItem = oldItem;
 
-                        // otherwise add the item
+                    // otherwise add the item
                     } else {
                         sc_items[newItem.id()] = newItem;
                     }
@@ -693,6 +695,29 @@
                     this.trigger("update");
                 },
 
+                shippingWeight: function() {
+                    var weight = 0;
+
+                    simpleCart.each(function(item) {
+                      weight += parseFloat(item.get('weight') || 0);
+                    });
+                    settings.shippingWeight = parseFloat(weight);
+                    return settings.shippingWeight;
+                },
+
+                shippingNeeded: function() {
+                    var physicalItems = false;
+
+                    simpleCart.each(function(item) {
+                      if(item.get('physical') > 0 || item.get('physical') == 'true') {
+                        physicalItems = true;
+                      }
+                    });
+                    settings.shippingNeeded = physicalItems || simpleCart.shippingWeight() > 0;
+
+                    return settings.shippingNeeded;
+                },
+
                 shipping: function(opt_custom_function) {
 
                     // shortcut to extend options with custom shipping
@@ -716,6 +741,7 @@
                     });
                     return parseFloat(cost);
                 }
+
 
             });
 
@@ -1006,7 +1032,7 @@
 
                 // special fields for items
                 reservedFields: function() {
-                    return ['quantity', 'id', 'item_number', 'price', 'name', 'shipping', 'tax', 'taxRate'];
+                    return ['quantity', 'id', 'item_number', 'price', 'name', 'shipping', 'tax', 'taxRate', 'weight'];
                 },
 
                 // return values for all reserved fields if they exist
@@ -1205,6 +1231,7 @@
                         data['item_name_' + counter] = item.get('name');
                         data['item_quantity_' + counter] = item.quantity();
                         data['item_price_' + counter] = item.price();
+                        data['item_weight_' + counter] = item.weight();
                         data['item_currency_ ' + counter] = simpleCart.currency().code;
                         data['item_tax_rate' + counter] = item.get('taxRate') || simpleCart.taxRate();
 
@@ -2016,7 +2043,7 @@
              *******************************************************************/
             // Cleanup functions for the document ready method
             // used from jQuery
-            /*global DOMContentLoaded */
+            /* global DOMContentLoaded */
             if (document.addEventListener) {
                 window.DOMContentLoaded = function() {
                     document.removeEventListener("DOMContentLoaded", DOMContentLoaded, false);
