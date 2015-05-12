@@ -111,6 +111,11 @@
                         symbol: "&euro;",
                         name: "Euro"
                     },
+                    "EGP": {
+                        code: "EGP",
+                        symbol: "E&pound;",
+                        name: "Egyptian Pound"
+                    },
                     "HKD": {
                         code: "HKD",
                         symbol: "&#36;",
@@ -576,7 +581,16 @@
                         items[item.id()] = simpleCart.extend(item.fields(), item.options());
                     });
 
-                    localStorage.setItem(namespace + "_items", JSON.stringify(items));
+                    // try statement to catch storing errors and avoid
+                    // QUOTA_EXCEEDED_ERR issues in safari
+                    if (!!window.localStorage) {
+                      try {
+                        localStorage.setItem(namespace + "_items", JSON.stringify(items));
+                      }
+                      catch (e){
+                        simpleCart.error( "Error storing data: " + e );
+                      }
+                    }
 
                     simpleCart.trigger('afterSave');
                 },
